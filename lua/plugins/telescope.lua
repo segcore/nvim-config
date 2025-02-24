@@ -42,6 +42,7 @@ return {
               ["<C-k>"] = require('telescope.actions').cycle_history_prev,
             },
           },
+          file_ignore_patterns = { '^.git/' },
         },
         extensions = {
           ['ui-select'] = {
