@@ -110,24 +110,23 @@ return {
   -- Jump to earlier files
   {
     'ThePrimeagen/harpoon',
+    branch = 'harpoon2',
     event = 'VeryLazy',
-    dependencies = {
-      'nvim-lua/plenary.nvim'
-    },
-    opts = {
-      menu = {
-        width = 100,
-      }
-    },
+    dependencies = { 'nvim-lua/plenary.nvim' },
     config = function()
-      vim.keymap.set('n', '<leader>ha', require('harpoon.mark').add_file, { desc = 'Harpoon: [a]dd file' })
-      vim.keymap.set('n', '<leader>hs', require('harpoon.ui').toggle_quick_menu, { desc = 'Harpoon: [s]how UI' })
-      vim.keymap.set('n', '<leader>hj', require('harpoon.ui').nav_next, { desc = 'Harpoon: next mark' })
-      vim.keymap.set('n', '<leader>hk', require('harpoon.ui').nav_prev, { desc = 'Harpoon: prev mark' })
-      vim.keymap.set('n', '<leader>hq', function() require('harpoon.ui').nav_file(1) end, { desc = 'Harpoon: file 1' })
-      vim.keymap.set('n', '<leader>hw', function() require('harpoon.ui').nav_file(2) end, { desc = 'Harpoon: file 2' })
-      vim.keymap.set('n', '<leader>he', function() require('harpoon.ui').nav_file(3) end, { desc = 'Harpoon: file 3' })
-      vim.keymap.set('n', '<leader>hr', function() require('harpoon.ui').nav_file(4) end, { desc = 'Harpoon: file 4' })
+      local harpoon = require('harpoon')
+      harpoon:setup()
+      vim.keymap.set('n', '<leader>ha', function() harpoon:list():add() end, { desc = 'Harpoon: [a]dd file' })
+      vim.keymap.set('n', '<leader>hs', function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, { desc = 'Harpoon: [s]how UI' })
+      vim.keymap.set('n', '<leader>hj', function() harpoon:list():next() end, { desc = 'Harpoon: next mark' })
+      vim.keymap.set('n', '<leader>hk', function() harpoon:list():prev() end, { desc = 'Harpoon: prev mark' })
+      vim.keymap.set('n', '<leader>hq', function() harpoon:list():select(1) end, { desc = 'Harpoon: file 1' })
+      vim.keymap.set('n', '<leader>hw', function() harpoon:list():select(2) end, { desc = 'Harpoon: file 2' })
+      vim.keymap.set('n', '<leader>he', function() harpoon:list():select(3) end, { desc = 'Harpoon: file 3' })
+      vim.keymap.set('n', '<leader>hr', function() harpoon:list():select(4) end, { desc = 'Harpoon: file 4' })
+
+      local harpoon_extensions = require("harpoon.extensions")
+      harpoon:extend(harpoon_extensions.builtins.highlight_current_file())
     end,
   },
 
