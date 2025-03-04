@@ -182,5 +182,24 @@ return {
         },
       },
     },
+    config = function(_, opts)
+      local parser_config = require('nvim-treesitter.parsers').get_parser_configs()
+
+      if vim.fn.filereadable(vim.fn.expand('~/opt/tree-sitter-jai/src/parser.c')) then
+        parser_config.jai = {
+          install_info = {
+            -- https://github.com/constantitus/tree-sitter-jai
+            url = '~/opt/tree-sitter-jai',
+            files = { 'src/parser.c', 'src/scanner.c' },
+            generate_requires_npm = false,
+            requires_generate_from_grammar = false,
+          },
+          filetype = 'jai',
+        }
+        vim.treesitter.language.register('jai', 'jai')
+        vim.filetype.add({ extension = { jai = "jai", } })
+        require('nvim-treesitter.configs').setup(opts)
+      end
+    end,
   },
 }
