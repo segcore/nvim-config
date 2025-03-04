@@ -115,7 +115,12 @@ return {
     dependencies = { 'nvim-lua/plenary.nvim' },
     config = function()
       local harpoon = require('harpoon')
-      harpoon:setup()
+      harpoon:setup({
+        settings = {
+          save_on_toggle = true,
+          sync_on_ui_close = true,
+        },
+      })
       vim.keymap.set('n', '<leader>ha', function() harpoon:list():add() end, { desc = 'Harpoon: [a]dd file' })
       vim.keymap.set('n', '<leader>hs', function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, { desc = 'Harpoon: [s]how UI' })
       vim.keymap.set('n', '<leader>hj', function() harpoon:list():next() end, { desc = 'Harpoon: next mark' })
