@@ -1,19 +1,25 @@
 -- Keymaps
 
-vim.keymap.set('n', '<leader>hh', function()
-  vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({}))
-end, { desc = 'Toggle inlay hints' })
 vim.keymap.set('n', '<leader>hi', function()
   local editpath = vim.fn.stdpath('config') .. '/lua/plugins/general.lua'
   vim.cmd.tabedit(editpath)
   vim.cmd.tcd(vim.fn.stdpath('config'))
   require('telescope.builtin').find_files()
 end, { desc = 'Edit neovim config in a new tab' })
+
 vim.keymap.set('n', '<leader>s.', function()
-  vim.cmd([[tabedit ~/.dotfiles/setup.sh
-  tcd %:h]])
+  vim.cmd.tabedit('~/.dotfiles/setup.sh')
+  vim.cmd.tcd('%:h')
   require('telescope.builtin').find_files()
 end, { desc = 'Edit dotfiles in a new tab' })
+
+vim.keymap.set('n', '<leader>sj', function()
+  local jaipath = '~/opt/jai'
+  vim.cmd.tabedit(jaipath .. '/modules/Basic/Print.jai')
+  vim.cmd.tcd(jaipath)
+  -- require('telescope.builtin').find_files()
+end, { desc = 'Open Jai path' })
+
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Normal mode from terminal' })
 vim.keymap.set('n', 'n', 'nzz', { desc = 'next search and center' })
 vim.keymap.set('n', 'N', 'Nzz', { desc = 'prev search and center' })
@@ -23,6 +29,11 @@ vim.keymap.set('n', '<leader>l', '<cmd>.lua<CR>', { desc = 'Run current line as 
 vim.keymap.set('n', '<leader>L', '<cmd>%lua<CR>', { desc = 'Run the current file as Lua code' })
 vim.keymap.set('v', '<leader>l', [[<Esc><cmd>'<,'>lua<CR>]], { desc = 'Run selected lines as Lua code' })
 vim.keymap.set('n', '^', '<cmd>ClangdSwitchSourceHeader<CR>', { desc = 'Switch between source and header' })
+
+vim.keymap.set('n', '<leader>hh', function()
+  vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({}))
+end, { desc = 'Toggle inlay hints' })
+
 
 -- Delete without cutting to registers
 -- vim.keymap.set({'n', 'v'}, '<leader>d', '"_d', { desc = 'Delete (no registers)' })

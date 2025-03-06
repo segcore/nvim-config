@@ -1,7 +1,7 @@
 return {
   {
     'segcore/build-selector.nvim',
-    dir = '~/personal/build-selector',
+    dir = '~/p/build-selector.nvim/',
     config = function()
       local bs = require('build-selector')
       bs.setup({ simplify = false})
