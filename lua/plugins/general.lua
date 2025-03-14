@@ -253,6 +253,7 @@ return {
     'github/copilot.vim',
     event = 'VeryLazy',
     enabled = false,
+    commit = '5015939f131627a6a332c9e3ecad9a7cb4c2e549',
     init = function()
       vim.g.copilot_enabled = true
     end,
