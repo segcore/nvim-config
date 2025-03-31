@@ -79,6 +79,12 @@ vim.opt.foldmethod = "marker"
 vim.opt.foldmarker = "{,}"
 vim.opt.foldlevel = 100
 
+vim.diagnostic.config({
+  virtual_text = true,
+  underline = true,
+  signs = false,
+})
+
 ------------ [[ Clipboard ]]
 -- Immediately set clipboard on Windows, to not delay startup time
 -- Taken from /usr/local/share/nvim/runtime/autoload/provider/clipboard.vim
