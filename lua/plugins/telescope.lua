@@ -3,7 +3,7 @@ return {
   {
     'nvim-telescope/telescope.nvim',
     event = 'VeryLazy',
-    branch = '0.1.x',
+    -- branch = '0.1.x',
     dependencies = {
       'nvim-lua/plenary.nvim',
       {
@@ -41,6 +41,9 @@ return {
               ["<C-j>"] = require('telescope.actions').cycle_history_next,
               ["<C-k>"] = require('telescope.actions').cycle_history_prev,
             },
+          },
+          path_display = {
+            "truncate",
           },
           file_ignore_patterns = { '^.git/' },
         },

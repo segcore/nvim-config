@@ -48,7 +48,14 @@ return {
           nmap('gI', tele.lsp_implementations, '[G]oto [I]mplementation')
           nmap('<leader>D', tele.lsp_type_definitions, 'Type [D]efinition')
           nmap('<leader>ds', tele.lsp_document_symbols, '[D]ocument [S]ymbols')
-          nmap('<leader>ws', tele.lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+          nmap('<leader>ws', function() tele.lsp_dynamic_workspace_symbols({
+            fname_width = 0.5,
+            symbol_width = 0.25,
+            symbol_type_width = 0.2,
+            path_display = {
+              "filename_first",
+            },
+          }) end, '[W]orkspace [S]ymbols')
 
           -- This is now the default in neovim v0.10+
           -- nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
