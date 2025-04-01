@@ -90,9 +90,9 @@ vim.keymap.set('n', '<leader>S', [[<cmd>s/\s\+$//e<CR>]], { desc = "Clear whites
 vim.keymap.set('v', '<leader>S', [[<Esc><cmd>'<,'>s/\s\+$//e<CR>]], { desc = "Clear whitespace at end of line" })
 
 -- Diagnostic keymaps
-vim.keymap.set('n', '[e', function() vim.diagnostic.jump({ severity = vim.diagnostic.severity.ERROR, count = 1 }) end,
+vim.keymap.set('n', '[e', function() vim.diagnostic.jump({ severity = vim.diagnostic.severity.ERROR, count = -1 }) end,
   { desc = 'Go to previous error message' })
-vim.keymap.set('n', ']e', function() vim.diagnostic.jump({ severity = vim.diagnostic.severity.ERROR, count = -1 }) end,
+vim.keymap.set('n', ']e', function() vim.diagnostic.jump({ severity = vim.diagnostic.severity.ERROR, count = 1 }) end,
   { desc = 'Go to next error message' })
 vim.keymap.set('n', '<leader>ee', function()
   vim.diagnostic.enable(not vim.diagnostic.is_enabled())
