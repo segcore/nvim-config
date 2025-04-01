@@ -54,8 +54,8 @@ vim.keymap.set('n', 'gy', "`[v`]", { desc = "Select last inserted or yanked text
 -- Move lines up and down with Alt-j, Alt-k in normal and visual modes
 vim.keymap.set('n', '<A-j>', '<cmd>m .+1<CR>==', { desc = 'Move lines down one' })
 vim.keymap.set('n', '<A-k>', '<cmd>m .-2<CR>==', { desc = 'Move lines up one' })
-vim.keymap.set('i', '<A-j>', '<Esc>m .+1<CR>==gi', { desc = 'Move lines down one' })
-vim.keymap.set('i', '<A-k>', '<Esc>m .-2<CR>==gi', { desc = 'Move lines up one' })
+vim.keymap.set('i', '<A-j>', '<Esc><cmd>m .+1<CR>==gi', { desc = 'Move lines down one' })
+vim.keymap.set('i', '<A-k>', '<Esc><cmd>m .-2<CR>==gi', { desc = 'Move lines up one' })
 
 -- Jump within the quickfix list
 -- (uses cnext/cprev because cfirst and clast are not necessarily the 'real' errors, just the first and last lines)
@@ -90,26 +90,18 @@ vim.keymap.set('n', '<leader>S', [[<cmd>s/\s\+$//e<CR>]], { desc = "Clear whites
 vim.keymap.set('v', '<leader>S', [[<Esc><cmd>'<,'>s/\s\+$//e<CR>]], { desc = "Clear whitespace at end of line" })
 
 -- Diagnostic keymaps
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
-vim.keymap.set('n', '[e', function() vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR }) end,
+vim.keymap.set('n', '[e', function() vim.diagnostic.jump({ severity = vim.diagnostic.severity.ERROR, count = 1 }) end,
   { desc = 'Go to previous error message' })
-vim.keymap.set('n', ']e', function() vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR }) end,
+vim.keymap.set('n', ']e', function() vim.diagnostic.jump({ severity = vim.diagnostic.severity.ERROR, count = -1 }) end,
   { desc = 'Go to next error message' })
-vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
-vim.keymap.set('n', '<leader>dh', (function()
-  local show = true
-  return function()
-    show = not show
-    vim.diagnostic.enable(show)
-    if show then
-      print("Diagnostics enabled")
-    else
-      print("Diagnostics disabled")
-    end
+vim.keymap.set('n', '<leader>ee', function()
+  vim.diagnostic.enable(not vim.diagnostic.is_enabled())
+  if vim.diagnostic.is_enabled() then
+    print("Diagnostics enabled")
+  else
+    print("Diagnostics disabled")
   end
-end)(), { desc = 'Toggle diagnostics on/off' })
+end, { desc = 'Toggle diagnostics on/off' })
 
 -- Training wheels
 local function training_wheels() print("No arrow keys!") end

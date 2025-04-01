@@ -83,6 +83,10 @@ vim.diagnostic.config({
   virtual_text = true,
   underline = true,
   signs = false,
+  jump = {
+    float = true,
+    wrap = false,
+  },
 })
 
 ------------ [[ Clipboard ]]
