@@ -58,6 +58,7 @@ return {
       pcall(require('telescope').load_extension, 'fzf')
       pcall(require('telescope').load_extension, 'ui-select')
 
+      if vim.g.picker == 'telescope' then
       -- Wrap the function and call it with the options
       local function ww(func, opts)
         return function() func(opts) end
@@ -109,6 +110,8 @@ return {
         prompt_title = 'Live Grep in Open Files',
         grep_open_files = true,
       }), { desc = '[S]earch [/] in Open Files' })
+      end
+
     end
   },
 }

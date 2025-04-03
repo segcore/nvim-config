@@ -6,6 +6,9 @@ vim.g.maplocalleader = ' '
 vim.g.have_nerd_font = true
 vim.g.is_wsl = vim.fn.has('wsl') == 1
 
+-- vim.g.picker = 'telescope'
+vim.g.picker = 'snacks'
+
 -- Load trusted .nvim.lua files on startup
 vim.opt.exrc = true
 

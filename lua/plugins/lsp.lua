@@ -42,22 +42,33 @@ return {
           nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
           nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
-          local tele = require('telescope.builtin')
-          local ws_opts = {
-            fname_width = 0.5,
-            symbol_width = 0.25,
-            symbol_type_width = 0.2,
-            path_display = {
-              "filename_first",
-            },
-          }
-          nmap('gd', tele.lsp_definitions, '[G]oto [D]efinition')
-          nmap('gr', tele.lsp_references, '[G]oto [R]eferences')
-          nmap('gI', tele.lsp_implementations, '[G]oto [I]mplementation')
-          nmap('<leader>D', tele.lsp_type_definitions, 'Type [D]efinition')
-          nmap('<leader>ds', tele.lsp_document_symbols, '[D]ocument [S]ymbols')
-          nmap('<leader>ws', function() tele.lsp_dynamic_workspace_symbols(ws_opts) end, '[W]orkspace [S]ymbols')
-          nmap('<leader>wS', function() tele.lsp_workspace_symbols(ws_opts) end, '[W]orkspace [S]ymbols, this workspace')
+          if vim.g.picker == 'telescope' then
+            local tele = require('telescope.builtin')
+            local ws_opts = {
+              fname_width = 0.5,
+              symbol_width = 0.25,
+              symbol_type_width = 0.2,
+              path_display = {
+                "filename_first",
+              },
+            }
+            nmap('gd', tele.lsp_definitions, '[G]oto [D]efinition')
+            nmap('gr', tele.lsp_references, '[G]oto [R]eferences')
+            nmap('gI', tele.lsp_implementations, '[G]oto [I]mplementation')
+            nmap('<leader>D', tele.lsp_type_definitions, 'Type [D]efinition')
+            nmap('<leader>ds', tele.lsp_document_symbols, '[D]ocument [S]ymbols')
+            nmap('<leader>ws', function() tele.lsp_dynamic_workspace_symbols(ws_opts) end, '[W]orkspace [S]ymbols')
+            nmap('<leader>wS', function() tele.lsp_workspace_symbols(ws_opts) end, '[W]orkspace [S]ymbols, this workspace')
+          elseif vim.g.picker == 'snacks' then
+            local snacks = require('snacks')
+            nmap('gd', function() snacks.picker.lsp_definitions() end, '[G]oto [D]efinition')
+            nmap('gr', function() snacks.picker.lsp_references() end, '[G]oto [R]eferences')
+            nmap('gI', function() snacks.picker.lsp_implementations() end, '[G]oto [I]mplementation')
+            nmap('<leader>D', function() snacks.picker.lsp_type_definitions() end, 'Type [D]efinition')
+            nmap('<leader>ds', function() snacks.picker.lsp_symbols() end, '[D]ocument [S]ymbols')
+            nmap('<leader>ws', function() snacks.picker.lsp_workspace_symbols() end, '[W]orkspace [S]ymbols')
+            nmap('<leader>wS', function() snacks.picker.lsp_declarations() end, '[W]orkspace [S]ymbols, this workspace')
+          end
 
           -- This is now the default in neovim v0.10+
           -- nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
