@@ -1,8 +1,10 @@
 -- Remove default keymaps of nvim 0.11 which conflict
-vim.keymap.del('n', 'grn')
-vim.keymap.del('n', 'grr')
-vim.keymap.del('n', 'gri')
-vim.keymap.del('n', 'gra')
+pcall(function()
+  vim.keymap.del('n', 'grn')
+  vim.keymap.del('n', 'grr')
+  vim.keymap.del('n', 'gri')
+  vim.keymap.del('n', 'gra')
+end)
 
 return {
   {
