@@ -187,6 +187,7 @@ return {
 
   {
     'hat0uma/csvview.nvim',
+    event = 'VeryLazy',
     opts = {
       parser = { comments = { "#", "//" } },
       view = {
@@ -202,7 +203,16 @@ return {
         jump_prev_row = { "<S-Enter>", mode = { "n", "v" } },
       },
     },
-    cmd = { "CsvViewEnable", "CsvViewDisable", "CsvViewToggle" },
+    -- cmd = { "CsvViewEnable", "CsvViewDisable", "CsvViewToggle" },
+    config = function(_, opts)
+      require('csvview').setup(opts)
+      vim.keymap.set('n', '<leader>cv', function()
+        require("csvview").toggle()
+        if require('csvview').is_enabled(0) then
+          vim.opt_local.wrap = false
+        end
+      end, { desc = 'Toggle CSV view' })
+    end,
   },
 
   -- Put-text extensions.
