@@ -98,7 +98,7 @@ return {
       vim.keymap.set('n', '<leader>sd', bi.diagnostics, { desc = '[S]earch [D]iagnostics' })
       vim.keymap.set('n', '<leader>sr', bi.resume, { desc = '[S]earch [R]esume' })
       vim.keymap.set('n', '<leader>s"', bi.registers, { desc = '[S]earch registers' })
-      vim.keymap.set('n', '<leader>sj', bi.jumplist, { desc = '[S]earch [J]umplist' })
+      vim.keymap.set('n', '<leader>sJ', bi.jumplist, { desc = '[S]earch [J]umplist' })
       vim.keymap.set('n', '<leader>sT', bi.tagstack, { desc = '[S]earch [T]agstack' })
       vim.keymap.set('n', '<leader>sq', bi.quickfix, { desc = '[S]earch [Q]uickfix list' })
       vim.keymap.set('n', '<leader>sQ', bi.quickfixhistory, { desc = '[S]earch [Q]uickfix history' })

@@ -11,3 +11,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     vim.highlight.on_yank()
   end,
 })
+
+-- Add errorformats
+local jai = [[%f:%l\,%v: %t%\a\*:%m]]
+vim.o.errorformat = jai .. ',' .. vim.o.errorformat
