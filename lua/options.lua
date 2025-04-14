@@ -117,3 +117,17 @@ if vim.fn.has('wsl') == 1 then
     print("No win32yank")
   end
 end
+
+
+----- Override vim.ui.open on wsl to use wslview
+if vim.fn.has('wsl') == 1 then
+  if vim.fn.executable('wslview') == 1 then
+    local original_open = vim.ui.open
+    vim.ui.open = function(path, opt)
+      if opt == nil then
+        opt = { cmd = { 'wslview' }, path }
+      end
+      original_open(path, opt)
+    end
+  end
+end
