@@ -87,10 +87,10 @@ return {
     config = function()
       require('which-key').setup({
         spec = {
-          { "<leader>g",  group = "[G]it" },
-          { "<leader>h",  group = "[H]arpoon" },
-          { "<leader>s",  group = "[S]earch" },
-          { "<leader>w",  group = "[W]orkspace" },
+          { "<leader>g",  group = "Git" },
+          { "<leader>h",  group = "Harpoon" },
+          { "<leader>s",  group = "Search" },
+          { "<leader>w",  group = "Workspace" },
         },
       })
     end,
@@ -121,8 +121,8 @@ return {
           sync_on_ui_close = true,
         },
       })
-      vim.keymap.set('n', '<leader>ha', function() harpoon:list():add() end, { desc = 'Harpoon: [a]dd file' })
-      vim.keymap.set('n', '<leader>hs', function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, { desc = 'Harpoon: [s]how UI' })
+      vim.keymap.set('n', '<leader>ha', function() harpoon:list():add() end, { desc = 'Harpoon: add file' })
+      vim.keymap.set('n', '<leader>hs', function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, { desc = 'Harpoon: show UI' })
       vim.keymap.set('n', '<leader>hj', function() harpoon:list():next() end, { desc = 'Harpoon: next mark' })
       vim.keymap.set('n', '<leader>hk', function() harpoon:list():prev() end, { desc = 'Harpoon: prev mark' })
       vim.keymap.set('n', '<leader>hq', function() harpoon:list():select(1) end, { desc = 'Harpoon: file 1' })
@@ -207,10 +207,11 @@ return {
     config = function(_, opts)
       require('csvview').setup(opts)
       vim.keymap.set('n', '<leader>cv', function()
-        require("csvview").toggle()
-        if require('csvview').is_enabled(0) then
+        -- Set nowrap before toggle, so csvview will load it the correct way
+        if not require('csvview').is_enabled(0) then
           vim.opt_local.wrap = false
         end
+        require("csvview").toggle()
       end, { desc = 'Toggle CSV view' })
     end,
   },
