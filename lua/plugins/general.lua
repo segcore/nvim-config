@@ -206,13 +206,15 @@ return {
     -- cmd = { "CsvViewEnable", "CsvViewDisable", "CsvViewToggle" },
     config = function(_, opts)
       require('csvview').setup(opts)
-      vim.keymap.set('n', '<leader>cv', function()
+      local function toggle(override)
         -- Set nowrap before toggle, so csvview will load it the correct way
         if not require('csvview').is_enabled(0) then
           vim.opt_local.wrap = false
         end
-        require("csvview").toggle()
-      end, { desc = 'Toggle CSV view' })
+        require("csvview").toggle(0, override)
+      end
+      vim.keymap.set('n', '<leader>cv', function() toggle() end, { desc = 'Toggle CSV view' })
+      vim.keymap.set('n', '<leader>cV', function() toggle({view = { header_lnum = false} }) end, { desc = 'Toggle CSV view' })
     end,
   },
 

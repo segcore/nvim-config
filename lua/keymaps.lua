@@ -68,10 +68,10 @@ vim.keymap.set({'n', 'v'}, '<leader>x', '"_x', { desc = 'Delete char (no registe
 
 -- Jump within the quickfix list
 -- (uses cnext/cprev because cfirst and clast are not necessarily the 'real' errors, just the first and last lines)
-vim.keymap.set('n', '<A-C-h>', '<cmd>cfirst | cnext<CR>', { desc = 'First quickfix item' })
-vim.keymap.set('n', '<A-h>', '<cmd>cprev<CR>', { desc = 'Previous quickfix item' })
-vim.keymap.set('n', '<A-l>', '<cmd>cnext<CR>', { desc = 'Next quickfix item' })
-vim.keymap.set('n', '<A-C-l>', '<cmd>clast | cprev<CR>', { desc = 'Last quickfix item' })
+vim.keymap.set('n', '<A-C-h>', '<cmd>cfirst | cnext<CR>zz', { desc = 'First quickfix item' })
+vim.keymap.set('n', '<A-h>', '<cmd>cprev<CR>zz', { desc = 'Previous quickfix item' })
+vim.keymap.set('n', '<A-l>', '<cmd>cnext<CR>zz', { desc = 'Next quickfix item' })
+vim.keymap.set('n', '<A-C-l>', '<cmd>clast | cprev<CR>zz', { desc = 'Last quickfix item' })
 
 -- Move lines up and down with Alt-j, Alt-k in normal and visual modes
 vim.keymap.set('n', '<A-j>', '<cmd>m .+1<CR>==', { desc = 'Move lines down one' })

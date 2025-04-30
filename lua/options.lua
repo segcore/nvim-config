@@ -6,25 +6,21 @@ vim.g.maplocalleader = ' '
 vim.g.have_nerd_font = true
 vim.g.is_wsl = vim.fn.has('wsl') == 1
 
--- vim.g.picker = 'telescope'
-vim.g.picker = 'snacks'
+vim.g.picker = true and 'telescope' or 'snacks'
 
 -- Load trusted .nvim.lua files on startup
 vim.opt.exrc = true
 
--- Set highlight on search
 vim.opt.hlsearch = true
+vim.opt.wrapscan = false
+vim.opt.lazyredraw = true -- experiment
 
--- Make line numbers default
 vim.opt.number = true
 vim.opt.relativenumber = true
 
 -- Enable mouse mode
 vim.opt.mouse = 'a'
 
--- Sync clipboard between OS and Neovim.
---  Remove this option if you want your OS clipboard to remain independent.
---  See `:help 'clipboard'`
 vim.opt.clipboard = 'unnamedplus'
 
 -- Every wrapped line will continue visually indented
@@ -61,13 +57,8 @@ vim.opt.cursorline = true
 -- Keep some space at top and bottom of screen
 vim.opt.scrolloff = 8
 
--- Set completeopt to have a better completion experience
 vim.opt.completeopt = 'menuone,noselect,preview'
-
--- NOTE: You should make sure your terminal supports this
 vim.opt.termguicolors = true
-
--- Help colourschemes out
 vim.opt_global.background = "light"
 
 -- Tab spacing
