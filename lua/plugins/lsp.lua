@@ -1,3 +1,12 @@
+-- Install to path: https://github.com/SogoCZE/Jails.git
+vim.lsp.config.jails = {
+  cmd = { 'jails', },
+  root_markers = { '.git', 'build.jai' },
+  filetypes = { 'jai' }
+}
+
+vim.lsp.enable({ 'jails' })
+
 return {
   {
     -- LSP Configuration & Plugins
@@ -80,7 +89,7 @@ return {
         -- },
         pylyzer = {
         },
-        csharp_ls = {},
+        -- csharp_ls = {},
         -- ["omnisharp-mono"] = {},
         -- ["omnisharp_mono"] = {},
         -- omnisharp = {
@@ -107,6 +116,7 @@ return {
               completion = {
                 callSnippet = 'Replace',
               },
+              telemetry = { enable = false },
               -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
               -- diagnostics = { disable = { 'missing-fields' } },
             },
