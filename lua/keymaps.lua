@@ -26,10 +26,19 @@ end, { desc = 'Toggle inlay hints' })
 vim.keymap.set('n', '^', '<cmd>ClangdSwitchSourceHeader<CR>', { desc = 'Switch between source and header' })
 
 ----- Diagnostics
-vim.keymap.set('n', '[e', function() vim.diagnostic.jump({ severity = vim.diagnostic.severity.ERROR, count = -1 }) end,
-  { desc = 'Go to previous error message' })
-vim.keymap.set('n', ']e', function() vim.diagnostic.jump({ severity = vim.diagnostic.severity.ERROR, count = 1 }) end,
-  { desc = 'Go to next error message' })
+-- nvim 0.11 support
+if vim.diagnostic.jump then
+  vim.keymap.set('n', '[e', function() vim.diagnostic.jump({ severity = vim.diagnostic.severity.ERROR, count = -1 }) end,
+    { desc = 'Go to previous error message' })
+  vim.keymap.set('n', ']e', function() vim.diagnostic.jump({ severity = vim.diagnostic.severity.ERROR, count = 1 }) end,
+    { desc = 'Go to next error message' })
+else
+  -- nvim 0.10 support
+  vim.keymap.set('n', '[e', function() vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR }) end,
+    { desc = 'Go to previous error message' })
+  vim.keymap.set('n', ']e', function() vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR }) end,
+    { desc = 'Go to next error message' })
+end
 vim.keymap.set('n', '<leader>ee', function()
   vim.diagnostic.enable(not vim.diagnostic.is_enabled())
   if vim.diagnostic.is_enabled() then
