@@ -75,19 +75,17 @@ return {
         },
         ols = {},
         -- gopls = {},
-        -- pylsp = {
-        --   settings = {
-        --     pylsp = {
-        --       plugins = {
-        --         pycodestyle = {
-        --           -- ignore = {'W391'},
-        --           maxLineLength = 200,
-        --         },
-        --       },
-        --     },
-        --   },
-        -- },
-        pylyzer = {
+        pylsp = {
+          settings = {
+            pylsp = {
+              plugins = {
+                pycodestyle = {
+                  ignore = {'W391', 'E302', 'E303', 'E266', 'E261' },
+                  maxLineLength = 200,
+                },
+              },
+            },
+          },
         },
         -- csharp_ls = {},
         -- ["omnisharp-mono"] = {},
