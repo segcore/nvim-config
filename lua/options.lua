@@ -13,7 +13,7 @@ vim.opt.exrc = true
 
 vim.opt.hlsearch = true
 vim.opt.wrapscan = false
-vim.opt.lazyredraw = true -- experiment
+vim.opt.lazyredraw = false
 
 vim.opt.number = true
 vim.opt.relativenumber = true

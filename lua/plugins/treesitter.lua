@@ -42,7 +42,7 @@ return {
         'cmake',
         'cpp',
         'css',
-        'csv',
+        -- 'csv',
         'diff',
         'dockerfile',
         'dot',
