@@ -94,6 +94,14 @@ return {
       vim.keymap.set('n', '<leader>sa', ww(bi.live_grep,
           { prompt_title = 'Live Grep all files', additional_args = { '--hidden', '--no-ignore' } }),
         { desc = 'Search All files by grep' })
+      vim.keymap.set('n', '<leader>s0', function()
+          local dir = vim.fs.dirname(vim.api.nvim_buf_get_name(0))
+          bi.live_grep { prompt_title = 'Live Grep in ' .. dir, cwd = dir, additional_args = { '--hidden', '--no-ignore' } }
+        end, { desc = 'Search by grep in buf dir' })
+      vim.keymap.set('n', '<leader>s1', function()
+          local dir = vim.fs.dirname(vim.fs.dirname(vim.api.nvim_buf_get_name(0)))
+          bi.live_grep { prompt_title = 'Live Grep in ' .. dir, cwd = dir, additional_args = { '--hidden', '--no-ignore' } }
+        end, { desc = 'Search by grep in buf dir-up-1' })
       vim.keymap.set('n', '<leader>sd', bi.diagnostics, { desc = 'Search Diagnostics' })
       vim.keymap.set('n', '<leader>sr', bi.resume, { desc = 'Search Resume' })
       vim.keymap.set('n', '<leader>s"', bi.registers, { desc = 'Search registers' })
