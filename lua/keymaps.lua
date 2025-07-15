@@ -67,9 +67,9 @@ vim.keymap.set('n', 'gy', "`[v`]", { desc = "Select last inserted or yanked text
 -- Delete without cutting to registers
 vim.keymap.set({'n', 'v'}, '<leader>x', '"_x', { desc = 'Delete char (no registers)' })
 
--- Remap for word wrap
--- vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
--- vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+-- Go down and up one visual line (when word wrapping)
+vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 -- Jump within the quickfix list
 -- (uses cnext/cprev because cfirst and clast are not necessarily the 'real' errors, just the first and last lines)
