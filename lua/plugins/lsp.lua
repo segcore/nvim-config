@@ -75,6 +75,18 @@ return {
         },
         ols = {},
         -- gopls = {},
+        basedpyright = {
+          settings = {
+            basedpyright = {
+              analysis = {
+                typeCheckingMode = "basic",
+                autoSearchPaths = true,
+                useLibraryCodeForTypes = true,
+                diagnosticMode = "workspace",
+              },
+            },
+          },
+        },
         -- pylsp = {
         --   settings = {
         --     pylsp = {
