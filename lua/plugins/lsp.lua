@@ -66,18 +66,30 @@ return {
         },
         ols = {},
         -- gopls = {},
-        pylsp = {
+        basedpyright = {
           settings = {
-            pylsp = {
-              plugins = {
-                pycodestyle = {
-                  ignore = {'W391', 'E302', 'E303', 'E266', 'E261' },
-                  maxLineLength = 200,
-                },
+            basedpyright = {
+              analysis = {
+                typeCheckingMode = "basic",
+                autoSearchPaths = true,
+                useLibraryCodeForTypes = true,
+                diagnosticMode = "workspace",
               },
             },
           },
         },
+        -- pylsp = {
+        --   settings = {
+        --     pylsp = {
+        --       plugins = {
+        --         pycodestyle = {
+        --           ignore = {'W391', 'E302', 'E303', 'E266', 'E261' },
+        --           maxLineLength = 200,
+        --         },
+        --       },
+        --     },
+        --   },
+        -- },
         -- pylyzer = {
         -- },
         -- csharp_ls = {},
