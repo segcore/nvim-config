@@ -15,7 +15,8 @@ return {
         " Revert catppuccin's Comment highlight change, to make comments lighter
         " and easier to distinguish from code
         " highlight Comment guifg=#7c7f93 " catppuccin's new colour
-        highlight Comment guifg=#9ca0b0   " catppuccin's old colour
+        " highlight Comment guifg=#9ca0b0 " catppuccin's old colour
+        highlight Comment guifg=#8790a1
       ]])
     end,
     opts = {
