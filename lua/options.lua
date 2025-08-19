@@ -14,6 +14,7 @@ vim.opt.exrc = true
 vim.opt.hlsearch = true
 vim.opt.wrapscan = false
 vim.opt.lazyredraw = false
+vim.opt.winborder = 'rounded'
 
 vim.opt.number = true
 vim.opt.relativenumber = true
@@ -21,7 +22,12 @@ vim.opt.relativenumber = true
 -- Enable mouse mode
 vim.opt.mouse = 'a'
 
-vim.opt.clipboard = 'unnamedplus'
+-- Improves startup time by setting it up later
+vim.api.nvim_create_autocmd('UIEnter', {
+  callback = function()
+    vim.o.clipboard = 'unnamedplus'
+  end,
+})
 
 -- Every wrapped line will continue visually indented
 vim.opt.breakindent = true

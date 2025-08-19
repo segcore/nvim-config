@@ -8,15 +8,13 @@ return {
         'nvim-treesitter/nvim-treesitter-context',
         config = function()
           require('treesitter-context').setup({
-            max_lines = 15,
+            max_lines = 6,
             -- min_window_height = 25,
-            -- multiline_threshold = 20,
+            multiline_threshold = 1,
             trim_scope = 'inner',
           })
 
-          vim.keymap.set('n', '<leader>ce', '<cmd>TSContextEnable<CR>', { desc = 'Function context enable' })
-          vim.keymap.set('n', '<leader>cd', '<cmd>TSContextDisable<CR>', { desc = 'Function context disable' })
-          vim.keymap.set('n', '<leader>cc', '<cmd>TSContextToggle<CR>', { desc = 'Function context toggle' })
+          vim.keymap.set('n', '<leader>cc', '<cmd>TSContext toggle<CR>', { desc = 'Function context toggle' })
 
           vim.cmd([[
           hi TreesitterContext guibg=#dde0dd
