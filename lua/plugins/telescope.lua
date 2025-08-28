@@ -75,6 +75,7 @@ return {
       vim.keymap.set('n', '<leader>gt', bi.git_status, { desc = 'Telescope: git status' })
       vim.keymap.set('n', '<leader>gT', ww(bi.git_status, { cwd = vim.fs.dirname(vim.api.nvim_buf_get_name(0)), use_git_root = false }), { desc = 'Telescope: git status' })
       vim.keymap.set('n', '<leader>gB', bi.git_branches, { desc = 'Telescope: git branches' })
+      vim.keymap.set('n', '<leader>gh', bi.git_stash, { desc = 'Telescope: git stash' })
       vim.keymap.set('n', '<leader>gf', bi.git_files, { desc = 'Search Git Files' })
       vim.keymap.set('n', '<leader>sf', ww(bi.find_files, { hidden = true }), { desc = 'Search Files' })
       vim.keymap.set('n', '<leader>sF', ww(bi.find_files,

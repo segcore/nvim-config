@@ -23,7 +23,7 @@ vim.keymap.set('n', '<leader>hh', function()
   vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({}))
 end, { desc = 'Toggle inlay hints' })
 
-vim.keymap.set('n', '^', '<cmd>ClangdSwitchSourceHeader<CR>', { desc = 'Switch between source and header' })
+vim.keymap.set('n', '^', '<cmd>LspClangdSwitchSourceHeader<CR>', { desc = 'Switch between source and header' })
 
 ----- Diagnostics
 -- nvim 0.11 support
