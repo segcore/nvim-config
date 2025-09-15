@@ -17,6 +17,9 @@ return {
         " highlight Comment guifg=#7c7f93 " catppuccin's new colour
         " highlight Comment guifg=#9ca0b0 " catppuccin's old colour
         highlight Comment guifg=#8790a1
+        highlight @variable.parameter guifg=#569bf5
+        highlight @variable guifg=#1f1f1f
+        highlight @property guifg=#473d87
       ]])
     end,
     opts = {
