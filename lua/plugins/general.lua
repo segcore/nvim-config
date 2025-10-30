@@ -294,4 +294,13 @@ return {
       vim.g.copilot_enabled = true
     end,
   },
+
+  {
+    'godlygeek/tabular',
+    config = function()
+      -- Align by '/' comments
+      vim.cmd([[AddTabularPattern! comment /^[^\/]*\zs\//l1r0]])
+      vim.cmd([[AddTabularPattern! = /^[^=]*\zs=/]])
+    end
+  },
 }
