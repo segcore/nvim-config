@@ -9,6 +9,7 @@ return {
 
       vim.cmd([[
         highlight LspReferenceText  guibg=#afdcfa
+        highlight LspReferenceTarget guibg=#bfbcfa
         highlight LspReferenceRead  guibg=#92f7aa
         highlight LspReferenceWrite guibg=#88e39e
 
