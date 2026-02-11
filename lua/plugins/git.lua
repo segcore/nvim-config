@@ -42,6 +42,15 @@ return {
         vim.keymap.set('n', '<leader>gl', gs.toggle_linehl, { buffer = bufnr, desc = 'Toggle line highlight' })
         vim.keymap.set('n', '<leader>gw', gs.toggle_word_diff, { buffer = bufnr, desc = 'Toggle word diff' })
         vim.keymap.set('n', '<leader>gv', gs.select_hunk, { buffer = bufnr, desc = 'Select git hunk' })
+        vim.keymap.set('n', '<leader>gc', function()
+          vim.ui.input({ prompt = 'Compare against which revision? ' },
+            function(ans)
+              if ans == nil then return end -- User cancelled
+              if ans == '' then ans = nil end -- Select default current revision
+              gs.change_base(ans, true)
+            end
+          )
+        end, { buffer = bufnr, desc = 'Change git diff base to diff against' })
 
         -- don't override the built-in and fugitive keymaps
         vim.keymap.set({ 'n', 'v' }, ']c', function()
