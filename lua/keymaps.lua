@@ -102,10 +102,6 @@ vim.cmd([[
   " Keep visual selection when indenting
   vnoremap < <gv
   vnoremap > >gv
-
-  highlight eolSpace ctermbg=238 guibg=#e6e6e6 guifg=#bbbbbb
-  match eolSpace /\s\+$/
-  highlight Folded guibg=#eeeef5 guifg=#aaaaaa
 ]])
 
 -- Window resizing
