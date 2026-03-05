@@ -171,9 +171,11 @@ return {
   },
 
   {
+    -- https://github.com/iamcco/markdown-preview.nvim
     'iamcco/markdown-preview.nvim',
     cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
     ft = { "markdown", "plantuml" },
+    -- For this to work, nodejs (and possibly yarn or npm) need to be installed
     build = function() vim.fn["mkdp#util#install"]() end,
     init = function()
       if vim.g.is_wsl then
