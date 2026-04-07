@@ -2,36 +2,12 @@ return {
   {
     -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
-    dependencies = {
-      'nvim-treesitter/nvim-treesitter-textobjects',
-      {
-        'nvim-treesitter/nvim-treesitter-context',
-        config = function()
-          require('treesitter-context').setup({
-            max_lines = 6,
-            -- min_window_height = 25,
-            multiline_threshold = 1,
-            trim_scope = 'inner',
-          })
-
-          vim.keymap.set('n', '<leader>cc', '<cmd>TSContext toggle<CR>', { desc = 'Function context toggle' })
-
-          vim.cmd([[
-          hi TreesitterContext guibg=#dde0dd
-          hi TreesitterContextLineNumberBottom gui=underline
-          ]])
-        end,
-      }
-    },
+    branch = 'main',
+    lazy = false,
     build = ':TSUpdate',
-    main = 'nvim-treesitter.configs',
-    opts = {
-      modules = {},
-      sync_install = false,
-      ignore_install = {},
-
-      -- Add languages to be installed here that you want installed for treesitter
-      ensure_installed = {
+    setup = function()
+      -- todo, use this
+      local ensure_installed = {
         'asm',
         'awk',
         'bash',
@@ -85,113 +61,146 @@ return {
         'xml',
         'yaml',
         'zig',
-      },
-
-      -- Autoinstall languages that are not installed.
-      auto_install = false,
-
-      highlight = { enable = true },
-      indent = { enable = true, disable = { 'c', 'cpp' } },
-      incremental_selection = {
-        enable = true,
-        keymaps = {
-          init_selection = '<C-space>',
-          node_incremental = '<C-space>',
-          scope_incremental = '<C-s>',
-          node_decremental = '<M-space>',
-        },
-      },
-      textobjects = {
+      }
+    end,
+  },
+  {
+    'nvim-treesitter/nvim-treesitter-textobjects',
+    branch = 'main',
+    init = function()
+      -- Suggested to avoid conflicts, but this sounds bad
+      -- vim.g.no_plugin_maps = true
+    end,
+    config = function()
+      require("nvim-treesitter-textobjects").setup {
         select = {
-          enable = true,
-          lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
-          keymaps = {
-            -- You can use the capture groups defined in textobjects.scm
-            ['aa'] = '@parameter.outer',
-            ['ia'] = '@parameter.inner',
-            ['af'] = '@function.outer',
-            ['if'] = '@function.inner',
-            ['ac'] = '@call.outer',
-            ['ic'] = '@call.inner',
-            ['al'] = '@loop.outer',
-            ['il'] = '@loop.inner',
-            ['in'] = '@number.inner',
-            ['an'] = '@number.inner', -- There is no number.outer
-            ['ir'] = '@return.inner',
-            ['ar'] = '@return.outer',
-            ['iv'] = '@conditional.inner',
-            ['av'] = '@conditional.outer',
+          lookahead = true,
+          selection_modes = {
+            ['@parameter.outer'] = 'v', -- charwise
+            ['@function.outer'] = 'V', -- linewise
           },
+          include_surrounding_whitespace = false,
         },
         move = {
-          enable = true,
-          set_jumps = true, -- whether to set jumps in the jumplist
-          goto_next_start = {
-            [']a'] = '@parameter.inner',
-            [']m'] = '@function.outer',
-            [']]'] = '@class.outer',
-            [']l'] = '@loop.outer',
-            [']r'] = '@return.outer',
-            [']n'] = '@number.inner',
-            [']v'] = '@conditional.inner',
-          },
-          goto_next_end = {
-            [']A'] = '@parameter.outer',
-            [']M'] = '@function.outer',
-            [']['] = '@class.outer',
-            [']L'] = '@loop.outer',
-            [']R'] = '@return.outer',
-            [']N'] = '@number.inner',
-            [']V'] = '@conditional.inner',
-          },
-          goto_previous_start = {
-            ['[a'] = '@parameter.inner',
-            ['[m'] = '@function.outer',
-            ['[['] = '@class.outer',
-            ['[l'] = '@loop.outer',
-            ['[r'] = '@return.outer',
-            ['[n'] = '@number.inner',
-            ['[v'] = '@conditional.outer',
-          },
-          goto_previous_end = {
-            ['[A'] = '@parameter.outer',
-            ['[M'] = '@function.outer',
-            ['[]'] = '@class.outer',
-            ['[L'] = '@loop.outer',
-            ['[R'] = '@return.outer',
-            ['[N'] = '@number.inner',
-            ['[V'] = '@conditional.outer',
-          },
-        },
-        swap = {
-          enable = true,
-          swap_next = {
-            ['<leader>a'] = '@parameter.inner',
-          },
-          swap_previous = {
-            ['<leader>A'] = '@parameter.inner',
-          },
-        },
-      },
-    },
-    config = function(_, opts)
-      local parser_config = require('nvim-treesitter.parsers').get_parser_configs()
-
-      if vim.fn.filereadable(vim.fn.expand('~/opt/tree-sitter-jai/src/parser.c')) then
-        parser_config.jai = {
-          install_info = {
-            -- https://github.com/constantitus/tree-sitter-jai
-            url = '~/opt/tree-sitter-jai',
-            files = { 'src/parser.c', 'src/scanner.c' },
-            generate_requires_npm = false,
-            requires_generate_from_grammar = false,
-          },
-          filetype = 'jai',
+          set_jumps = true,
         }
-        vim.treesitter.language.register('jai', 'jai')
-        vim.filetype.add({ extension = { jai = "jai", } })
-        require('nvim-treesitter.configs').setup(opts)
+      }
+
+      local select = function(lhs, query_string, query_group)
+        vim.keymap.set({'x', 'o'}, lhs, function()
+          require("nvim-treesitter-textobjects.select").select_textobject(query_string, query_group)
+        end)
       end
+      local swap_prev = function(lhs, query_string, query_group)
+        vim.keymap.set('n', lhs, function()
+          require("nvim-treesitter-textobjects.swap").swap_previous(query_string, query_group)
+        end)
+      end
+      local swap_next = function(lhs, query_string, query_group)
+        vim.keymap.set('n', lhs, function()
+          require("nvim-treesitter-textobjects.swap").swap_next(query_string, query_group)
+        end)
+      end
+      local goto_next_start = function(lhs, query_string, query_group)
+        vim.keymap.set({'n', 'x', 'o'}, lhs, function()
+          require("nvim-treesitter-textobjects.move").goto_next_start(query_string, query_group)
+        end)
+      end
+      local goto_next_end = function(lhs, query_string, query_group)
+        vim.keymap.set({'n', 'x', 'o'}, lhs, function()
+          require("nvim-treesitter-textobjects.move").goto_next_end(query_string, query_group)
+        end)
+      end
+      local goto_previous_start = function(lhs, query_string, query_group)
+        vim.keymap.set({'n', 'x', 'o'}, lhs, function()
+          require("nvim-treesitter-textobjects.move").goto_previous_start(query_string, query_group)
+        end)
+      end
+      local goto_previous_end = function(lhs, query_string, query_group)
+        vim.keymap.set({'n', 'x', 'o'}, lhs, function()
+          require("nvim-treesitter-textobjects.move").goto_previous_end(query_string, query_group)
+        end)
+      end
+
+      select('aa', '@parameter.outer', 'textobjects')
+      select('ia', '@parameter.inner', 'textobjects')
+      select('af', '@function.outer', 'textobjects')
+      select('if', '@function.inner', 'textobjects')
+      select('ac', '@call.outer', 'textobjects')
+      select('ic', '@call.inner', 'textobjects')
+      select('al', '@loop.outer', 'textobjects')
+      select('il', '@loop.inner', 'textobjects')
+      -- select('in', '@number.inner', 'textobjects')
+      -- select('an', '@number.inner', 'textobjects') -- There is no number.outer
+      select('ir', '@return.inner', 'textobjects')
+      select('ar', '@return.outer', 'textobjects')
+      select('iv', '@conditional.inner', 'textobjects')
+      select('av', '@conditional.outer', 'textobjects')
+      swap_next('<leader>a', '@parameter.inner')
+      swap_prev('<leader>A', '@parameter.outer')
+
+      goto_next_start(']a', '@parameter.inner')
+      goto_next_start(']m', '@function.outer')
+      goto_next_start(']]', '@class.outer')
+      goto_next_start(']l', '@loop.outer')
+      goto_next_start(']r', '@return.outer')
+      goto_next_start(']n', '@number.inner')
+      goto_next_start(']v', '@conditional.inner')
+
+      goto_next_end(']A', '@parameter.outer')
+      goto_next_end(']M', '@function.outer')
+      goto_next_end('][', '@class.outer')
+      goto_next_end(']L', '@loop.outer')
+      goto_next_end(']R', '@return.outer')
+      goto_next_end(']N', '@number.inner')
+      goto_next_end(']V', '@conditional.inner')
+
+      goto_previous_start('[a', '@parameter.inner')
+      goto_previous_start('[m', '@function.outer')
+      goto_previous_start('[[', '@class.outer')
+      goto_previous_start('[l', '@loop.outer')
+      goto_previous_start('[r', '@return.outer')
+      goto_previous_start('[n', '@number.inner')
+      goto_previous_start('[v', '@conditional.outer')
+
+      goto_previous_end('[A', '@parameter.outer')
+      goto_previous_end('[M', '@function.outer')
+      goto_previous_end('[]', '@class.outer')
+      goto_previous_end('[L', '@loop.outer')
+      goto_previous_end('[R', '@return.outer')
+      goto_previous_end('[N', '@number.inner')
+      goto_previous_end('[V', '@conditional.outer')
+
+--       -- indent = { enable = true, disable = { 'c', 'cpp' } },
+--       incremental_selection = {
+--         enable = true,
+--         keymaps = {
+--           init_selection = '<C-space>',
+--           node_incremental = '<C-space>',
+--           scope_incremental = '<C-s>',
+--           node_decremental = '<M-space>',
+--         },
+--       },
+
+    end,
+  },
+
+  {
+    'nvim-treesitter/nvim-treesitter-context',
+    config = function()
+      require('treesitter-context').setup({
+        max_lines = 6,
+        -- min_window_height = 25,
+        multiline_threshold = 1,
+        trim_scope = 'inner',
+      })
+
+      vim.keymap.set('n', '<leader>cc', '<cmd>TSContext toggle<CR>', { desc = 'Function context toggle' })
+
+      vim.cmd([[
+      hi TreesitterContext guibg=#dde0dd
+      hi TreesitterContextLineNumberBottom gui=underline
+      ]])
     end,
   },
 }
