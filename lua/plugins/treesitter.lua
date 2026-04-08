@@ -171,6 +171,10 @@ return {
       goto_previous_end('[N', '@number.inner')
       goto_previous_end('[V', '@conditional.outer')
 
+      -- Incremental selection growth
+      vim.keymap.set('n', '<C-space>', 'van', {remap=true})
+      vim.keymap.set('v', '<C-space>', 'an', {remap=true})
+
 --       -- indent = { enable = true, disable = { 'c', 'cpp' } },
 --       incremental_selection = {
 --         enable = true,

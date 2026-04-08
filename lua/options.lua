@@ -8,6 +8,8 @@ vim.g.is_wsl = vim.fn.has('wsl') == 1
 
 vim.g.picker = true and 'telescope' or 'snacks'
 
+require('vim._core.ui2').enable()
+
 -- Load trusted .nvim.lua files on startup
 vim.opt.exrc = true
 
