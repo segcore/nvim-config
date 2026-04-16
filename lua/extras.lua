@@ -2,6 +2,7 @@
 
 -- Filter the quickfix list with :Cfilter(!) /pattern/
 vim.cmd.packadd('cfilter')
+vim.cmd.packadd('nvim.tohtml')
 
 
 vim.api.nvim_create_autocmd('TextYankPost', {
