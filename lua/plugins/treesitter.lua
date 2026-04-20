@@ -5,8 +5,21 @@ return {
     branch = 'main',
     lazy = false,
     build = ':TSUpdate',
-    setup = function()
-      -- todo, use this
+    config = function()
+      -- Automatically start treesitter on filetypes that we have a treesitter installation for
+      vim.api.nvim_create_autocmd('FileType', {
+        pattern = '*',
+        callback = function(ev)
+          local filetype = vim.bo[ev.buf].filetype
+          local tsname = vim.treesitter.language.get_lang(filetype)
+          if tsname and vim.treesitter.language.add(tsname) then
+            vim.treesitter.start(ev.buf)
+            -- If both highlighting modes are desired, turn it on like this
+            -- vim.bo[ev.buf].syntax = 'ON'
+          end
+        end,
+      })
+
       local ensure_installed = {
         'asm',
         'awk',
@@ -35,7 +48,6 @@ return {
         'jsdoc',
         'json',
         'json5',
-        'jsonc',
         'kotlin',
         'lua',
         'luadoc',
@@ -62,6 +74,7 @@ return {
         'yaml',
         'zig',
       }
+      require('nvim-treesitter').install(ensure_installed, { max_jobs = 8 })
     end,
   },
   {
