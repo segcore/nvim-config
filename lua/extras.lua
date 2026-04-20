@@ -4,6 +4,7 @@
 vim.cmd.packadd('cfilter')
 vim.cmd.packadd('nvim.tohtml')
 
+vim.api.nvim_create_user_command('LspInfo', 'checkhealth vim.lsp', {})
 
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight when yanking text',
