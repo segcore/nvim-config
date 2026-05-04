@@ -74,7 +74,12 @@ return {
         'yaml',
         'zig',
       }
-      require('nvim-treesitter').install(ensure_installed, { max_jobs = 8 })
+
+      if vim.fn.executable('tree-sitter') == 1 then
+        require('nvim-treesitter').install(ensure_installed, { max_jobs = 8 })
+      else
+        print('Warning: tree-sitter-cli is required to build new parsers')
+      end
     end,
   },
   {
