@@ -163,9 +163,63 @@ return {
     },
     config = function(_, opts)
       require('nvim-tree').setup(opts)
+      -- vim.keymap.set('n', '-', function()
+      --   require("nvim-tree.api").tree.toggle({ path = ".", find_file = true, focus = true })
+      -- end, { desc = 'Toggle nvim-tree view' })
+    end,
+  },
+
+  -- File browser, electric boogaloo
+  {
+    'https://github.com/stevearc/oil.nvim',
+    opts = {
+      -- default_file_explorer = false,
+      columns = {
+        "icon",
+        "permissions",
+        "size",
+      },
+      keymaps = {
+        ["<C-h>"] = false,
+        ["<C-l>"] = false,
+        ["<BS>"] = "actions.parent",
+        ["<leader>sf"] = {
+          function()
+            require("telescope.builtin").find_files({
+              cwd = require("oil").get_current_dir()
+            })
+          end,
+          mode = "n",
+          nowait = true,
+          desc = "Find files in the current directory"
+        },
+      },
+    },
+    config = function(_, opts)
+      local oil = require('oil')
+      local show = {
+        { "icon" },
+        { "icon", "permissions", "size", "mtime" }
+      }
+      local showing = 1
+
+      opts.keymaps["gd"] = function()
+        showing = (showing + 1) % #show
+        local next = show[showing + 1]
+        require("oil").set_columns(next)
+      end
+
+      oil.setup(opts)
+
       vim.keymap.set('n', '-', function()
-        require("nvim-tree.api").tree.toggle({ path = ".", find_file = true, focus = true })
-      end, { desc = 'Toggle nvim-tree view' })
+        showing = 1
+        oil.open()
+      end, { desc = 'Open Oil file browser' })
+
+      vim.keymap.set('n', '<leader>-', function()
+        showing = 1
+        oil.open_float()
+      end, { desc = 'Open Oil in floating window' })
     end,
   },
 
@@ -304,4 +358,9 @@ return {
       vim.cmd([[AddTabularPattern! = /^[^=]*\zs=/]])
     end
   },
+
+  {
+    'https://github.com/Loukis-13/paint.nvim',
+    opts = {},
+  }
 }
