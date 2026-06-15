@@ -129,7 +129,7 @@ return {
       }
 
       vim.keymap.set('n', 'gd', bi.lsp_definitions, { desc = 'Goto Definition' })
-      vim.keymap.set('n', 'gr', bi.lsp_references, { desc = 'Goto References' })
+      vim.keymap.set('n', 'gr', ww(bi.lsp_references, { include_current_line = true } ), { desc = 'Goto References' })
       vim.keymap.set('n', 'gI', bi.lsp_implementations, { desc = 'Goto Implementation' })
       vim.keymap.set('n', '<leader>D', bi.lsp_type_definitions, { desc = 'Type Definition' })
       vim.keymap.set('n', '<leader>ds', bi.lsp_document_symbols, { desc = 'Document Symbols' })
