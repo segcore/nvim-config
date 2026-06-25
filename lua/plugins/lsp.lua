@@ -75,7 +75,6 @@ return {
         },
         ols = {},
         -- gopls = {},
-        ts_ls = {},
         rust_analyzer = {},
         basedpyright = {},
         -- pylsp = {

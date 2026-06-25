@@ -1,3 +1,5 @@
+vim.filetype.add({ extension = { jai = 'jai' } })
+
 return {
   {
     -- Highlight, edit, and navigate code
@@ -79,6 +81,18 @@ return {
         require('nvim-treesitter').install(ensure_installed, { max_jobs = 8 })
       else
         print('Warning: tree-sitter-cli is required to build new parsers')
+      end
+
+      -- https://github.com/constantitus/tree-sitter-jai
+      local dll = vim.fn.expand('~/opt/tree-sitter-jai/build/libtree-sitter-jai.so')
+      if vim.fn.filereadable(dll) == 1 then
+        local ok, err = vim.treesitter.language.add('jai', { path = dll })
+        if not ok then
+          print("Failed to load tree-sitter-jai: " .. err)
+        end
+        if ok then
+          vim.treesitter.language.register('jai', { 'jai' })
+        end
       end
     end,
   },
