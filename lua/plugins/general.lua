@@ -141,6 +141,7 @@ return {
   {
     'nvim-tree/nvim-tree.lua',
     event = 'VeryLazy',
+    enabled = false,
     dependencies = {
       'nvim-tree/nvim-web-devicons'
     },
@@ -173,7 +174,7 @@ return {
   {
     'https://github.com/stevearc/oil.nvim',
     opts = {
-      -- default_file_explorer = false,
+      default_file_explorer = true,
       columns = {
         "icon",
         "permissions",
@@ -210,6 +211,9 @@ return {
       end
 
       oil.setup(opts)
+      -- I want netrw AND oil to be available, but for oil to be the default
+      vim.g.loaded_netrw = nil
+      vim.g.loaded_netrwPlugin = nil
 
       vim.keymap.set('n', '-', function()
         showing = 1
