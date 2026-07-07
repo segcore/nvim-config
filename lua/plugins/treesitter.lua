@@ -223,8 +223,10 @@ return {
 
   {
     'nvim-treesitter/nvim-treesitter-context',
+    event = 'VeryLazy',
     config = function()
       require('treesitter-context').setup({
+        enable = false, -- Default to disabled. Enable on toggle.
         max_lines = 6,
         -- min_window_height = 25,
         multiline_threshold = 1,
