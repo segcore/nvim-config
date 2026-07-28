@@ -64,23 +64,41 @@ return {
   { -- status line
     'nvim-lualine/lualine.nvim',
     event = 'VeryLazy',
-    opts = {
-      options = {
-        icons_enabled = true,
-        component_separators = '|',
-        section_separators = '',
-      },
-      sections = {
-        lualine_c = {
-          { 'filename', path = 1 },
-        },
-        lualine_x = { 'filesize', 'encoding', 'fileformat', 'filetype' },
-        lualine_z = { 'selectioncount', 'location' }
-      },
-    },
     dependencies = {
       'nvim-tree/nvim-web-devicons',
-    }
+    },
+    config = function()
+
+      -- Detect a small window width, to disable some items in the status bar
+      local function w1() return vim.api.nvim_win_get_width(0) >= 60 end
+      local function w2() return vim.api.nvim_win_get_width(0) >= 80 end
+      local function w3() return vim.api.nvim_win_get_width(0) >= 100 end
+      local function w4() return vim.api.nvim_win_get_width(0) >= 120 end
+      require("lualine").setup({
+        options = {
+          icons_enabled = true,
+          component_separators = '|',
+          section_separators = '',
+        },
+        sections = {
+          lualine_a = {{'mode', cond=w2}},
+          lualine_b = {{'branch', cond=w3}, {'diff', cond=w4}, {'diagnostics', cond=w4}},
+          lualine_c = {{'filename', path=1 }},
+          lualine_x = {{'filesize', cond=w3}, {'encoding', cond=w4}, { 'fileformat', cond=w3}, {'filetype', cond=w2}},
+          lualine_y = {{'progress', cond=w1}},
+          lualine_z = {'selectioncount', {'location', cond=w1}}
+        },
+        inactive_sections = {
+          lualine_a = {},
+          lualine_b = {},
+          lualine_c = {{'filename', path=1}},
+          lualine_x = {{'location', cond=w1}},
+          lualine_y = {},
+          lualine_z = {}
+        },
+        global_status = true,
+      })
+    end,
   },
 
   {

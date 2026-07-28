@@ -9,6 +9,7 @@ return {
       "jay-babu/mason-nvim-dap.nvim",
       "jbyuki/one-small-step-for-vimkind", -- lua
       'neovim/nvim-lspconfig', -- To get the dependencies done in the right order
+      'https://codeberg.org/Jorenar/nvim-dap-disasm.git', -- Disassembly
     },
     event = 'VeryLazy',
     config = function()
@@ -16,8 +17,10 @@ return {
       local ui = require "dapui"
 
       require("dapui").setup()
-
       require("nvim-dap-virtual-text").setup()
+      require("dap-disasm").setup({
+        dapui_register = true,
+      })
 
       vim.api.nvim_create_autocmd('FileType', {
         pattern = 'dap-float',
@@ -99,6 +102,8 @@ return {
       }
 
       -- Language specific setups
+
+      dap.configurations.jai = dap.configurations.c
 
       -- dap.adapters.codelldb = {
       --   type = 'server',

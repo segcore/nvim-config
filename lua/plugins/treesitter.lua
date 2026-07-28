@@ -18,6 +18,9 @@ return {
             vim.treesitter.start(ev.buf)
             -- If both highlighting modes are desired, turn it on like this
             -- vim.bo[ev.buf].syntax = 'ON'
+            if filetype == 'jai' then
+              vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+            end
           end
         end,
       })
