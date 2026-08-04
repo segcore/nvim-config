@@ -22,6 +22,9 @@ return {
             if filetype == 'jai' then
               vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
             end
+
+            vim.wo.foldmethod = 'expr'
+            vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
           end
         end,
       })

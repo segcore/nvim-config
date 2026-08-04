@@ -65,7 +65,7 @@ return {
       local bi = require('telescope.builtin')
 
       vim.keymap.set('n', '<leader>?', ww(bi.oldfiles, { sort_mru = true }), { desc = '? Find recently opened files' })
-      vim.keymap.set('n', '<leader><leader>', bi.buffers, { desc = '  Find existing buffers' })
+      vim.keymap.set('n', '<leader><space>', ww(bi.buffers, { sort_mru=true }), { desc = '  Find existing buffers' })
 
       vim.keymap.set('n', '<leader>/', ww(bi.current_buffer_fuzzy_find, {
         winblend = 10,
