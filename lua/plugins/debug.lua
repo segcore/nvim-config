@@ -66,7 +66,10 @@ return {
       vim.keymap.set("n", "<F3>", dap.step_over, { desc = 'Debug: step over' })
       vim.keymap.set("n", "<F4>", dap.step_out, { desc = 'Debug: step out' })
       vim.keymap.set("n", "<F5>", dap.step_back, { desc = 'Debug: step back' })
-      vim.keymap.set('n', '<F7>', ui.toggle, { desc = 'Debug: See last session result.' })
+      vim.keymap.set('n', '<F7>', function()
+        ui.toggle()
+        require("nvim-dap-virtual-text").refresh()
+      end, { desc = 'Debug: See last session result.' })
       vim.keymap.set("n", "<F8>", dap.restart, { desc = 'Debug: restart' })
       vim.keymap.set("n", "<F9>", dap.close, { desc = 'Debug: stop' })
 
