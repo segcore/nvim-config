@@ -81,6 +81,11 @@ vim.keymap.set({'n', 'v'}, '<leader>x', '"_x', { desc = 'Delete char (no registe
 -- Go down and up one visual line (when word wrapping)
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+vim.api.nvim_create_user_command('JK', function(_)
+  -- Undo the mapping above, for this buffer.
+  vim.keymap.set('n', 'k', 'k', { silent = true, buf = 0 })
+  vim.keymap.set('n', 'j', 'j', { silent = true, buf = 0 })
+end, { desc = 'Apply default j/k mappings for this buffer' })
 
 -- Jump within the quickfix list
 -- (uses cnext/cprev because cfirst and clast are not necessarily the 'real' errors, just the first and last lines)
